@@ -2,6 +2,7 @@
 //require_once(explode("wp-content", __FILE__)[0] . "wp-load.php");
 require_once("wp-load.php");
 require_once('migration-functions/add_users.php');
+require_once('migration-functions/add_cats.php');
 
 $serverName = '192.168.1.49\SQLEXPRESS, 51115';
 $sql_server_uid = file_get_contents('sql_server_uid.txt');
@@ -26,21 +27,12 @@ if($conn==false){
   die($message);
 }
 
-allorg_add_users($conn);
+// task list
 
-//1329
-/*
-$sql = "SELECT TOP (5) * FROM NewsArticle";
-$getResults = sqlsrv_query($conn, $sql);
-if($getResults == false){
-  die(FormatErrors(sqlsrv_errors()));
-}
-else{
-  while($article = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)){
-    echo $article['Headline'] . '<br />';
-  }
-}
-*/
+//allorg_add_users($conn);
+allorg_add_categories($conn);
+
+// end task list
 
 function FormatErrors($errors){
   echo 'Error information:';
