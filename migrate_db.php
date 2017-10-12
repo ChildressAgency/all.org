@@ -1,6 +1,7 @@
 <?php
 //require_once(explode("wp-content", __FILE__)[0] . "wp-load.php");
 require_once("wp-load.php");
+require_once('wp-admin/includes/taxonomy.php');
 require_once('migration-functions/add_users.php');
 require_once('migration-functions/add_cats.php');
 
