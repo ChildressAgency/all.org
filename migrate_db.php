@@ -32,8 +32,11 @@ if($conn==false){
 
 //allorg_add_users($conn);
 allorg_add_categories($conn);
+allorg_add_news_article($conn);
 
 // end task list
+
+sqlsrv_close($conn);
 
 function FormatErrors($errors){
   echo 'Error information:';
