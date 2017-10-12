@@ -1,7 +1,7 @@
 <?php
 
 function allorg_add_categories($conn){
-  $sql = "SELECT CategoryName FROM NewsCategory WHERE SiteId = 1";
+  $sql = "SELECT CategoryName, CategoryId FROM NewsCategory WHERE SiteId = 1";
 
   $getResults = sqlsrv_query($conn, $sql);
   if($getResults == false){
@@ -25,6 +25,18 @@ function allorg_add_categories($conn){
         echo 'There was a problem adding the ' . $cat['Categoryname'] . ' category.';
       }
       else{
+        if($cat_id != $cat['CategoryId']){
+          global $wpdb;
+          $wpdb->update(
+            'wp_terms',
+            array(
+              'term_id' => $cat['CategoryId']
+            ),
+            array(
+              'term_id' => $cat_id
+            )
+          );
+        }
         $success = true;
 
         allorgLogIt($success, $task);
