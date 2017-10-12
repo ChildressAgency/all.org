@@ -3,7 +3,6 @@
 function allorg_add_users($conn){
 
   $sql = "SELECT Username, Email, Firstname, Lastname, CreateDate FROM Admin WHERE IsInternal != 1";
-  $user_info = [];
 
   $getResults = sqlsrv_query($conn, $sql);
   if($getResults == false){
