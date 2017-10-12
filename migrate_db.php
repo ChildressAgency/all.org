@@ -4,18 +4,26 @@ require_once("wp-load.php");
 require_once('migration-functions/add_users.php');
 
 $serverName = '192.168.1.49\SQLEXPRESS, 51115';
+$sql_server_uid = file_get_contents('sql_server_uid.txt');
+$sql_server_pwd = file_get_contents('sql_server_pwd.txt');
 
 $connOptions = array(
   'Database' => 'all',
   //'Authentication' => 'SqlPassword',
+  'ReturnDatesAsStrings' => true,
   'TrustServerCertificate' => true,
-  'Uid' => 'db_admin',
-  'PWD' => 'Childress1$'
+  'Uid' => $sql_server_uid,
+  'PWD' => $sql_server_pwd
 );
 $conn = sqlsrv_connect($serverName, $connOptions);
 
 if($conn==false){
-  die( FormatErrors( sqlsrv_errors()));
+  $success = false;
+  $task = 'Connecting to sql server';
+  $message = FormatErrors(sqlsrv_errors());
+
+  allorgLogIt($success, $task, $message);
+  die($message);
 }
 
 allorg_add_users($conn);
@@ -41,4 +49,16 @@ function FormatErrors($errors){
     echo 'Code: ' . $error['code'] . '';
     echo 'Message: ' . $error['message'] . '';
   }
+}
+
+function allorgLogIt($success, $task = '', $message = ''){
+  global $wpdb;
+  $wpdb->insert(
+    'migration_log',
+    array(
+      'success' => $success,
+      'task' => $task,
+      'message' => $message
+    )
+  );
 }

@@ -1,6 +1,7 @@
 <?php
 $serverName = "localhost";
 $connectionOptions = array(
+    "ReturnDatesAsStrings" => true,
     "Database" => "SampleDB",
     "Uid" => "sa",
     "PWD" => "your_password"
