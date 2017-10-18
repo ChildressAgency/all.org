@@ -4,6 +4,8 @@ require_once("wp-load.php");
 require_once('wp-admin/includes/taxonomy.php');
 require_once('migration-functions/add_users.php');
 require_once('migration-functions/add_cats.php');
+require_once('migration-functions/add_news_articles.php');
+require_once('migration-functions/add_faqs.php');
 
 $serverName = '192.168.1.49\SQLEXPRESS, 51115';
 $sql_server_uid = file_get_contents('sql_server_uid.txt');
@@ -31,8 +33,9 @@ if($conn==false){
 // task list
 
 //allorg_add_users($conn);
-allorg_add_categories($conn);
-allorg_add_news_article($conn);
+//allorg_add_categories($conn);
+//allorg_add_news_articles($conn);
+allorg_add_faqs($conn);
 
 // end task list
 
