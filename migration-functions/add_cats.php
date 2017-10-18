@@ -47,6 +47,7 @@ function allorg_add_categories($conn){
     }
     allorg_update_cat_ids($cat_ids);
   }
+  sqlsrv_free_stmt($getResults);
 }
 
 function allorg_update_cat_ids($cat_ids){

@@ -63,6 +63,7 @@ function allorg_add_news_articles($conn){
       }
     }
   }
+  sqlsrv_free_stmt($getResults);
 }
 
 function get_article_cats($conn, $article_id){
